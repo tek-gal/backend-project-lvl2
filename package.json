@@ -1,7 +1,7 @@
 {
   "name": "backend-project-lvl2",
   "version": "1.0.0",
-  "description": "My second backend-project!",
+  "description": "Compares two configuration files and shows a difference.",
   "keywords": [
     "wow-wow",
     "you are awesome!"
@@ -10,20 +10,24 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
     "@babel/node": "^7.8.4",
-    "@babel/preset-env": "^7.8.4"
+    "@babel/preset-env": "^7.8.4",
+    "eslint": "^6.8.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "commander": "^4.1.1"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "set NODE_ENV=production babel src --out-dir dist --source-maps inline",
+    "build": "set NODE_ENV=production && babel src --out-dir dist --source-maps inline",
     "prepublishOnly": "npm run build"
   },
   "files": [
     "dist"
   ],
   "bin": {
-    "wow": "dist/bin/index.js"
+    "wow": "dist/bin/index.js",
+    "gendiff": "dist/bin/gendiff.js"
   },
   "repository": {
     "type": "git",
