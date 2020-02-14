@@ -26,7 +26,6 @@
     "dist"
   ],
   "bin": {
-    "wow": "dist/bin/index.js",
     "gendiff": "dist/bin/gendiff.js"
   },
   "repository": {
