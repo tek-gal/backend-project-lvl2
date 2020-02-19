@@ -1,6 +1,9 @@
 install:
 	npm install
 
+build:
+	npm run build
+
 link:
 	npm run build
 	npm link
@@ -8,8 +11,8 @@ link:
 lint:
 	npx eslint .
 
+test:
+	npm test
+
 publish:
 	npm publish --dry-run
-
-build:
-	npm run build
