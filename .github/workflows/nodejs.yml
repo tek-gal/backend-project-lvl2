@@ -19,16 +19,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: npm install, build, and test
+      - name: npm install, build
         run: |
           make install
           make build
         env:
           CI: true
-      - name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@v2.4.0
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
 
    test:
     runs-on: ubuntu-latest
@@ -39,7 +35,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: test
+    - name: make test
       run: |
         make test
       env:
@@ -55,7 +51,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: lint
+    - name: make lint
       run: |
         make lint
       env:
