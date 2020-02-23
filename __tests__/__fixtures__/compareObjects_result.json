@@ -1,0 +1,23 @@
+[
+  {
+    "type": "unchanged",
+    "name": "constant",
+    "value": "wow"
+  },
+  {
+    "type": "changed",
+    "name": "robot",
+    "oldValue": "hobot",
+    "newValue": "hobot-hobot"
+  },
+  {
+    "type": "deleted",
+    "name": "deleted",
+    "value": "noooooo!"
+  },
+  {
+    "type": "added",
+    "name": "new",
+    "value": "wow!"
+  }
+]
