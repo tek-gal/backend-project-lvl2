@@ -7,6 +7,10 @@
 
 ![](https://https://github.com/tek-gal/backend-project-lvl2/workflows/test/badge.svg)
 
+<a href="https://github.com/hexlet-boilerplates/nodejs-package/actions">
+  <img src="https://github.com/tek-gal/backend-project-lvl2/workflows/test/badge.svg"/>
+</a>
+
 <a href="https://asciinema.org/a/D6zQ0Mda7rmczOKd8POyDOMk6">
   <img src="https://asciinema.org/a/D6zQ0Mda7rmczOKd8POyDOMk6.png" width="500"/>
 </a>
