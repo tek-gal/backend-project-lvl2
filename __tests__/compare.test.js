@@ -1,23 +1,38 @@
 import fs from 'fs';
 import path from 'path';
-import compareFiles from '../src/index.js';
+import compareFiles, { compareFilesInObject } from '../src/index.js';
 
 const fixturesDirName = './__fixtures__/';
 const fixturesDirPath = path.join(__dirname, fixturesDirName);
+const consoleOutputFilepath = path.join(fixturesDirPath, 'json_result.txt');
 
 const getFilepath = (filename) => path.join(fixturesDirPath, filename);
 
-const beforeFilename = 'flat_before.json';
-const afterFilename = 'flat_after.json';
-const resultFilename = 'flat_result.txt';
+const testFiles = [
+  ['json', 'before.json', 'after.json', 'compareObjects_result.json'],
+  ['yml', 'before.yml', 'after.yml', 'compareObjects_result.json'],
+];
 
-test('compareFiles', () => {
-  const beforeFilepath = getFilepath(beforeFilename);
-  const afterFilepath = getFilepath(afterFilename);
-  const resultFilepath = getFilepath(resultFilename);
+test.each(testFiles)('compareFilesInObject %s',
+  (code, beforeFilename, afterFilename, resultFilename) => {
+    const beforeFilepath = getFilepath(beforeFilename);
+    const afterFilepath = getFilepath(afterFilename);
+    const resultFilepath = getFilepath(resultFilename);
 
-  const result = compareFiles(beforeFilepath, afterFilepath);
-  const expected = fs.readFileSync(resultFilepath, 'utf-8').trim();
+    const result = compareFilesInObject(beforeFilepath, afterFilepath);
+    const expected = JSON.parse(fs.readFileSync(resultFilepath, 'utf-8').trim());
 
-  expect(result).toEqual(expected);
-});
+    expect(result).toEqual(expected);
+  });
+
+test.each(testFiles)('compareConsoleOutput %s',
+  (code, beforeFilename, afterFilename) => {
+    const beforeFilepath = getFilepath(beforeFilename);
+    const afterFilepath = getFilepath(afterFilename);
+    const resultFilepath = consoleOutputFilepath;
+
+    const result = compareFiles(beforeFilepath, afterFilepath);
+    const expected = fs.readFileSync(resultFilepath, 'utf-8').trim();
+
+    expect(result).toEqual(expected);
+  });

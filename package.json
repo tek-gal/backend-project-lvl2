@@ -21,8 +21,10 @@
     "jest-cli": "^25.1.0"
   },
   "dependencies": {
+    "codeclimate-test-reporter": "^0.5.1",
     "commander": "^4.1.1",
     "fs": "0.0.1-security",
+    "js-yaml": "^3.13.1",
     "lodash": "^4.17.15"
   },
   "jest": {
