@@ -1,14 +1,23 @@
+import fs from 'fs';
+import path from 'path';
 import compareFiles from '../src/index.js';
 
-const beforeFilepath = '/home/galina/Документы/HEXLET/backend-project-lvl2/fixtures/before.json';
-const afterFilepath = '/home/galina/Документы/HEXLET/backend-project-lvl2/fixtures/after.json';
+const fixturesDirName = './__fixtures__/';
+const fixturesDirPath = path.join(__dirname, fixturesDirName);
+
+const getFilepath = (filename) => path.join(fixturesDirPath, filename);
+
+const beforeFilename = 'flat_before.json';
+const afterFilename = 'flat_after.json';
+const resultFilename = 'flat_result.txt';
 
 test('compareFiles', () => {
-  const expected = `{
-  - robot: hobot,
-  + robot: hobot-hobot,
-  - deleted: noooooo!,
-  + new: wow!
-}`;
-  expect(compareFiles(beforeFilepath, afterFilepath)).toBe(expected);
+  const beforeFilepath = getFilepath(beforeFilename);
+  const afterFilepath = getFilepath(afterFilename);
+  const resultFilepath = getFilepath(resultFilename);
+
+  const result = compareFiles(beforeFilepath, afterFilepath);
+  const expected = fs.readFileSync(resultFilepath, 'utf-8').trim();
+
+  expect(result).toEqual(expected);
 });

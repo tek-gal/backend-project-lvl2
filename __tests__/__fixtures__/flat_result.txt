@@ -1,0 +1,6 @@
+{
+  - robot: hobot,
+  + robot: hobot-hobot,
+  - deleted: noooooo!,
+  + new: wow!
+}
