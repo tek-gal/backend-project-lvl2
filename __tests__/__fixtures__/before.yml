@@ -1,3 +1,7 @@
-  constant: wow
-  robot: hobot
-  deleted: noooooo!
+constant: wow
+robot: hobot
+deleted: noooooo!
+unchangedObject:
+  key1: value1
+changedObject:
+  key1: value1

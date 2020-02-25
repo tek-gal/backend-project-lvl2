@@ -1,5 +1,11 @@
 {
   "constant": "wow",
   "robot": "hobot",
-  "deleted": "noooooo!"
+  "deleted": "noooooo!",
+  "unchangedObject": {
+    "key1": "value1"
+  },
+  "changedObject": {
+    "key1": "value1"
+  }
 }
