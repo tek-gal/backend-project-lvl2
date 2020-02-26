@@ -1,0 +1,14 @@
+{
+    constant: wow,
+  - robot: hobot,
+  + robot: hobot-hobot,
+    unchangedObject: {
+        key1: value1
+    },
+    changedObject: {
+      - key1: value1
+      + key1: changed
+    },
+  - deleted: noooooo!,
+  + new: wow!
+}

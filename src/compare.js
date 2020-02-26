@@ -1,5 +1,22 @@
 import _ from 'lodash';
 
+const parseValue = (value) => {
+let result;
+
+if (value instanceof Object) {
+    result = Object.entries(value)
+      .map(([key, v]) => ({
+        type: 'unchanged',
+        name: key,
+        value: v,
+      }));
+} else {
+  result = value;
+}
+
+return result;
+};
+
 const compareCommonKeys = (commonKeys, obj1, obj2) => commonKeys
   .reduce((acc, key) => {
     const value1 = obj1[key];
@@ -23,8 +40,8 @@ const compareCommonKeys = (commonKeys, obj1, obj2) => commonKeys
       result = {
         type: 'changed',
         name: key,
-        oldValue: value1,
-        newValue: value2,
+        oldValue: parseValue(value1),
+        newValue: parseValue(value2),
       };
     }
 
@@ -39,13 +56,13 @@ const compareDifferentKeys = (differentKeys, obj1, obj2) => differentKeys
       result = {
         type: 'deleted',
         name: key,
-        value: obj1[key],
+        value: parseValue(obj1[key]),
       };
     } else {
       result = {
         type: 'added',
         name: key,
-        value: obj2[key],
+        value: parseValue(obj2[key]),
       };
     }
 
