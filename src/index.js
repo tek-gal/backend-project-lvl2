@@ -1,13 +1,12 @@
 import compareObjects from './compare.js';
 import parseFile from './parsers.js';
-import toJSON from './exporters.js';
+import formatter from './formatters';
 
 
-export default (filepath1, filepath2) => {
+export default (filepath1, filepath2, format = 'default') => {
   const obj1 = parseFile(filepath1);
   const obj2 = parseFile(filepath2);
-  const result = compareObjects(obj1, obj2);
-  const stringified = toJSON(result);
-
-  return stringified;
+  const compared = compareObjects(obj1, obj2);
+  const formatted = formatter(format, compared)
+  return formatted;
 };

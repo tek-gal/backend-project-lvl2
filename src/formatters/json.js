@@ -1,7 +1,7 @@
 const parse = (value, level) => {
   let result;
 
-  if (value instanceof Object){
+  if (value instanceof Object) {
     result = parseCompared(value, level);
   } else {
     result = value;
@@ -9,6 +9,42 @@ const parse = (value, level) => {
 
   return result;
 }
+// 
+// const keyTypeMapper = {
+//   hasChildren: (keyInfo, level) => parseCompared(keyInfo.value, level),
+//   unchanged:   (keyInfo, level) => '',
+//   deleted: function(keyInfo, level) {
+//     return `Property ${this._getPath(level)} was deleted`;
+//   },
+//   added: function(keyInfo, level) {
+//     const path = this._getPath(level);
+//     const value = this._getValue(keyInfo.value);
+//     return `Property ${path} was added with value: ${value}`;
+//   },
+//   changed: function(keyInfo, level) {
+//     const path = this._getPath(level);
+//     const parsedOldValue = this._getValue(keyInfo.oldValue);
+//     const parsedNewValue = this._getValue(keyInfo.newValue);
+//     return `Property ${path} was changed from ${parsedOldValue} to ${parsedNewValue}`;
+//   },
+//
+//   _getValue(value) {
+//     let result;
+//
+//     if (value instanceof Object) {
+//       result = '[complex value]';
+//     } else if (typeof value === 'string') {
+//       result = `'${value}'`;
+//     } else {
+//       result = value;
+//     }
+//
+//     return result;
+//   },
+//   _getPath(level) {
+//     return level.join('.');
+//   }
+// };
 
 function parseCompared(reducedKeys, level = 0) {
   const result = reducedKeys.reduce((acc, keyInfo, idx, arr) => {
@@ -19,7 +55,7 @@ function parseCompared(reducedKeys, level = 0) {
     let exported;
 
     switch (keyInfo.type) {
-      case 'object':
+      case 'hasChildren':
         exported = parse(keyInfo.value, newLevel);
         row = `   ${indent}${keyInfo.name}: ${exported}`;
         break;
@@ -57,57 +93,5 @@ function parseCompared(reducedKeys, level = 0) {
   const additional = '\n' + '    '.repeat(level) + '}';
   return result + additional;
 };
-
-  // const compared = reducedKeys.reduce((acc, keyInfo) => {
-  //   const indent = '  '.repeat(level) + ' ';
-  //   let row;
-  //
-  //   switch (keyInfo.type) {
-  //     case 'object':
-  //     const newLevel = level + 1;
-  //       row = {
-  //         [` ${indent}${keyInfo.name}`]: parseCompared(keyInfo.value, level),
-  //       }
-  //       break;
-  //
-  //     case 'unchanged':
-  //       row = {
-  //         [` ${indent}${keyInfo.name}`]: keyInfo.value,
-  //       };
-  //       break;
-  //
-  //     case 'changed':
-  //       row = {
-  //         [`-${indent}${keyInfo.name}`]: keyInfo.oldValue,
-  //         [`+${indent}${keyInfo.name}`]: keyInfo.newValue,
-  //       };
-  //       break;
-  //
-  //     case 'added':
-  //       row = {
-  //         [`+${indent}${keyInfo.name}`]: keyInfo.value,
-  //       };
-  //       break;
-  //
-  //     case 'deleted':
-  //       row = {
-  //         [`-${indent}${keyInfo.name}`]: keyInfo.value,
-  //       };
-  //       break;
-  //
-  //     default:
-  //       break;
-  //   }
-  //
-  //   return { ...acc, ...row };
-  // }, {});
-  //
-  // return JSON
-  //   .stringify(compared)
-  //   .replace(/\{/g, '{\n  ')
-  //   .replace(/\}/g, '\n}')
-  //   .replace(/,/g, ',\n  ')
-  //   .replace(/"/g, '')
-  //   .replace(/:/g, ': ');
 
 export default parseCompared;

@@ -11,10 +11,10 @@ program.version(pckg.version, '-V, --version', 'output the version number');
 
 program.arguments('<firstConfig> <secondConfig>')
   .action((filepath1, filepath2) => {
-    const comparedJSON = compareFiles(filepath1, filepath2);
-    console.log(comparedJSON);
+    const compared = compareFiles(filepath1, filepath2, program.format);
+    console.log(compared);
   });
 
-program.option('-f, --format [type]', 'output format');
+program.option('-f, --format [type]', 'output format', 'default');
 
 program.parse(process.argv);

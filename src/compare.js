@@ -1,20 +1,20 @@
 import _ from 'lodash';
 
 const parseValue = (value) => {
-let result;
+  let result;
 
-if (value instanceof Object) {
+  if (value instanceof Object) {
     result = Object.entries(value)
       .map(([key, v]) => ({
         type: 'unchanged',
         name: key,
         value: v,
       }));
-} else {
-  result = value;
-}
+  } else {
+    result = value;
+  }
 
-return result;
+  return result;
 };
 
 const compareCommonKeys = (commonKeys, obj1, obj2) => commonKeys
@@ -26,7 +26,7 @@ const compareCommonKeys = (commonKeys, obj1, obj2) => commonKeys
     if (value1 instanceof Object
       && value2 instanceof Object) {
       result = {
-        type: 'object',
+        type: 'hasChildren',
         name: key,
         value: compare(value1, value2),
       };
@@ -48,26 +48,28 @@ const compareCommonKeys = (commonKeys, obj1, obj2) => commonKeys
     return [...acc, result];
   }, []);
 
-const compareDifferentKeys = (differentKeys, obj1, obj2) => differentKeys
-  .reduce((acc, key) => {
-    let result;
+function compareDifferentKeys(differentKeys, obj1, obj2) {
+  return differentKeys
+    .reduce((acc, key) => {
+      let result;
 
-    if (_.has(obj1, key)) {
-      result = {
-        type: 'deleted',
-        name: key,
-        value: parseValue(obj1[key]),
-      };
-    } else {
-      result = {
-        type: 'added',
-        name: key,
-        value: parseValue(obj2[key]),
-      };
-    }
+      if (_.has(obj1, key)) {
+        result = {
+          type: 'deleted',
+          name: key,
+          value: parseValue(obj1[key]),
+        };
+      } else {
+        result = {
+          type: 'added',
+          name: key,
+          value: parseValue(obj2[key]),
+        };
+      }
 
-    return [...acc, result];
-  }, []);
+      return [...acc, result];
+    }, []);
+}
 
 function compare(obj1, obj2) {
   const keys1 = Object.keys(obj1);

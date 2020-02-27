@@ -19,3 +19,6 @@ publish:
 
 test-coverage:
 	  npm test -- --coverage
+
+test-plain:
+	gendiff --format plain __tests__/__fixtures__/before.json __tests__/__fixtures__/after.json
