@@ -1,19 +1,15 @@
 const keyTypeMapper = {
   hasChildren(keyInfo) {
-    const value = this.getValue(keyInfo.value);
-    return { [`  ${keyInfo.name}`]: value };
+    return this.pattern(keyInfo, ' ');
   },
   unchanged(keyInfo) {
-    const value = this.getValue(keyInfo.value);
-    return { [`  ${keyInfo.name}`]: value };
+    return this.pattern(keyInfo, ' ');
   },
   deleted(keyInfo) {
-    const value = this.getValue(keyInfo.value);
-    return { [`- ${keyInfo.name}`]: value };
+    return this.pattern(keyInfo, '-');
   },
   added(keyInfo) {
-    const value = this.getValue(keyInfo.value);
-    return { [`+ ${keyInfo.name}`]: value };
+    return this.pattern(keyInfo, '+');
   },
   changed(keyInfo) {
     const oldValue = this.getValue(keyInfo.oldValue);
@@ -24,6 +20,10 @@ const keyTypeMapper = {
     };
   },
 
+  pattern(keyInfo, symbol = ' ') {
+    const value = this.getValue(keyInfo.value);
+    return { [`${symbol} ${keyInfo.name}`]: value };
+  },
   getValue(value) {
     if (value instanceof Array) {
       return parseCompared(value);
