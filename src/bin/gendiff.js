@@ -15,6 +15,6 @@ program.arguments('<firstConfig> <secondConfig>')
     console.log(compared);
   });
 
-program.option('-f, --format [type]', 'output format', 'default');
+program.option('-f, --format [type]', 'output format', 'json');
 
 program.parse(process.argv);

@@ -1,25 +1,28 @@
+const notShownKeys = ['unchanged'];
+
 const keyTypeMapper = {
   hasChildren: (keyInfo, level) => parseCompared(keyInfo.value, level),
-  unchanged:   (keyInfo, level) => '',
-  deleted: function(keyInfo, level) {
-    return `Property ${this._getPath(level)} was deleted`;
+  unchanged: () => '',
+  deleted(keyInfo, level) {
+    const path = this.getPath(level);
+    return `Property ${path} was deleted`;
   },
-  added: function(keyInfo, level) {
-    const path = this._getPath(level);
-    const value = this._getValue(keyInfo.value);
+  added(keyInfo, level) {
+    const path = this.getPath(level);
+    const value = this.getValue(keyInfo.value);
     return `Property ${path} was added with value: ${value}`;
   },
-  changed: function(keyInfo, level) {
-    const path = this._getPath(level);
-    const parsedOldValue = this._getValue(keyInfo.oldValue);
-    const parsedNewValue = this._getValue(keyInfo.newValue);
+  changed(keyInfo, level) {
+    const path = this.getPath(level);
+    const parsedOldValue = this.getValue(keyInfo.oldValue);
+    const parsedNewValue = this.getValue(keyInfo.newValue);
     return `Property ${path} was changed from ${parsedOldValue} to ${parsedNewValue}`;
   },
 
-  _getValue(value) {
+  getValue(value) {
     let result;
 
-    if (value instanceof Object) {
+    if (value instanceof Array) {
       result = '[complex value]';
     } else if (typeof value === 'string') {
       result = `'${value}'`;
@@ -29,19 +32,18 @@ const keyTypeMapper = {
 
     return result;
   },
-  _getPath(level) {
-    return level.join('.');
-  }
+  getPath(level) {
+    return `'${level.join('.')}'`;
+  },
 };
 
 const parseCompared = (compared, level = []) => compared
+  .filter((keyInfo) => !notShownKeys.includes(keyInfo.type))
   .reduce((acc, keyInfo) => {
     const newLevel = [...level, keyInfo.name];
-    let parsed = keyTypeMapper[keyInfo.type](keyInfo, newLevel);
-
+    const parsed = keyTypeMapper[keyInfo.type](keyInfo, newLevel);
     return [...acc, parsed];
   }, [])
-  .filter((parsed) => parsed !== '')
   .join('\n');
 
 export default parseCompared;

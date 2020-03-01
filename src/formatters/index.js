@@ -2,8 +2,8 @@ import toJSON from './json.js';
 import toPlain from './plain.js';
 
 const mapper = {
-  'default': toJSON,
-  'plain': toPlain,
+  json: toJSON,
+  plain: toPlain,
 };
 
 
