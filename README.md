@@ -3,16 +3,23 @@
 Добро пожаловать в мой репозиторий со вторым проектом на Хекслете.
 <br>Здесь вы найдете cli-утилиту для сравнения изменения структуры двух файлов,
 записанных в json/yml/ini форматах.
-<br>Желаю приятно провести время!
 
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/a07d184d984f7432f561/maintainability)](https://codeclimate.com/github/tek-gal/backend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a07d184d984f7432f561/test_coverage)](https://codeclimate.com/github/tek-gal/backend-project-lvl2/test_coverage)
-
 <a href="https://github.com/tek-gal/backend-project-lvl2/actions">
   <img src="https://github.com/tek-gal/backend-project-lvl2/workflows/Node%20CI/badge.svg"/>
 </a>
+
+# install
+Скачайте репозиторий в папку, откройте папку в терминале и выполните:
+<pre>$ make install</pre>
+<a href="https://asciinema.org/a/0g1zkkmCeaNBIuIW3JykBYZCb">
+  <img src="https://asciinema.org/a/0g1zkkmCeaNBIuIW3JykBYZCb.png" width="500"/>
+</a>
+
 <br>
+
 <a href="https://asciinema.org/a/D6zQ0Mda7rmczOKd8POyDOMk6">
   <img src="https://asciinema.org/a/D6zQ0Mda7rmczOKd8POyDOMk6.png" width="500"/>
 </a>
