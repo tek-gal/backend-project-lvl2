@@ -12,5 +12,5 @@ export default (compared, format) => {
     return mapper[format](compared);
   }
 
-  throw Error('Unknown format!');
+  throw Error(`Unknown format: ${format}!`);
 };
