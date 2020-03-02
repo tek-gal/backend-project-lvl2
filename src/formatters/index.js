@@ -7,7 +7,7 @@ const mapper = {
 };
 
 
-export default (format, compared) => {
+export default (compared, format) => {
   if (Object.keys(mapper).includes(format)) {
     return mapper[format](compared);
   }

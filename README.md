@@ -1,4 +1,10 @@
-#backend-project-lvl2
+# gendiff
+
+Добро пожаловать в мой репозиторий со вторым проектом на Хекслете.
+<br>Здесь вы найдете cli-утилиту для сравнения изменения структуры двух файлов,
+записанных в json/yml/ini форматах.
+<br>Желаю приятно провести время!
+
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/a07d184d984f7432f561/maintainability)](https://codeclimate.com/github/tek-gal/backend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a07d184d984f7432f561/test_coverage)](https://codeclimate.com/github/tek-gal/backend-project-lvl2/test_coverage)
@@ -21,4 +27,7 @@
 </a>
 <a href="https://asciinema.org/a/MG8m5aLjixvXNkMVySutTBeSw">
   <img src="https://asciinema.org/a/MG8m5aLjixvXNkMVySutTBeSw.png" width="500"/>
+</a>
+<a href="https://asciinema.org/a/YENo55p74vVs5THD58BdyHkIA">
+  <img src="https://asciinema.org/a/YENo55p74vVs5THD58BdyHkIA.png" width="500"/>
 </a>

@@ -1,5 +1,5 @@
 const keyTypeMapper = {
-  hasChildren(keyInfo) {
+  complex(keyInfo) {
     return this.pattern(keyInfo, ' ');
   },
   unchanged(keyInfo) {

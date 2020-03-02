@@ -8,7 +8,7 @@ const fixturesDirPath = path.join(__dirname, fixturesDirName);
 const getFilepath = (filename) => path.join(fixturesDirPath, filename);
 
 const testFiles = [
-  // default - json
+  // json
   ['json', 'json', 'before.json', 'after.json', 'result_json.txt'],
   ['yml', 'json', 'before.yml', 'after.yml', 'result_json.txt'],
   ['ini', 'json', 'before.ini', 'after.ini', 'result_json.txt'],

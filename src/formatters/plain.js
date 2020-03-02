@@ -1,7 +1,7 @@
 const notShownKeys = ['unchanged'];
 
 const keyTypeMapper = {
-  hasChildren: (keyInfo, level) => parseCompared(keyInfo.value, level),
+  complex: (keyInfo, level) => parseCompared(keyInfo.value, level),
   unchanged: () => '',
   deleted(keyInfo, level) {
     const path = this.getPath(level);
