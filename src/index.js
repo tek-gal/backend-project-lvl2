@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import parse from './parser.js';
-import compare from './compare.js';
+import compare from './comparer.js';
 import format from './formatters';
 
 
