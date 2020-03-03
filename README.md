@@ -17,12 +17,10 @@
   $ make install<br>
   $ make link
 </pre>
-
+<br>
 <a href="https://asciinema.org/a/XqT5dAcKpThLzUk9yYIOpzrhH">
   <img src="https://asciinema.org/a/XqT5dAcKpThLzUk9yYIOpzrhH.png" width="500"/>
 </a>
-
-<hr>
 
 # usage
 Вывод в формате json
@@ -32,14 +30,14 @@
 </a>
 <br>
 Вывод в формате plain (default)
-
+<br>
 <a href="https://asciinema.org/a/MG8m5aLjixvXNkMVySutTBeSw">
   <img src="https://asciinema.org/a/MG8m5aLjixvXNkMVySutTBeSw.png" width="500"/>
 </a>
 
 <hr>
 Остальные шаги проекта
-
+<br>
 <a href="https://asciinema.org/a/YENo55p74vVs5THD58BdyHkIA">
   <img src="https://asciinema.org/a/YENo55p74vVs5THD58BdyHkIA.png" width="500"/>
 </a>
