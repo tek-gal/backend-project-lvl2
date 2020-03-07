@@ -5,7 +5,7 @@ on:
   - pull_request
 
 jobs:
-  test:
+  test & lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -14,26 +14,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: make test
+    - name: make test & lint
       run: |
         make install
         make test
-      env:
-        CI: true
-
-
-  lint:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: make lint
-      run: |
-        make install
         make lint
       env:
         CI: true

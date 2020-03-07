@@ -15,6 +15,6 @@ program.arguments('<firstConfig> <secondConfig>')
     console.log(compared);
   });
 
-program.option('-f, --format [type]', 'output format', 'plain');
+program.option('-f, --format [type]', 'output format', 'default');
 
 program.parse(process.argv);

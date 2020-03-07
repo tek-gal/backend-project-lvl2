@@ -1,7 +1,7 @@
 const notShownKeys = ['unchanged'];
 
 const keyTypeMapper = {
-  complex: (keyInfo, level) => parseCompared(keyInfo.value, level),
+  complex: (keyInfo, level) => format(keyInfo.children, level),
   unchanged: () => '',
   deleted(keyInfo, level) {
     const path = this.getPath(level);
@@ -9,7 +9,7 @@ const keyTypeMapper = {
   },
   added(keyInfo, level) {
     const path = this.getPath(level);
-    const value = this.getValue(keyInfo.value);
+    const value = this.getValue(keyInfo.newValue);
     return `Property ${path} was added with value: ${value}`;
   },
   changed(keyInfo, level) {
@@ -37,13 +37,14 @@ const keyTypeMapper = {
   },
 };
 
-const parseCompared = (compared, level = []) => compared
+const getFormatted = (keyInfo, level) => keyTypeMapper[keyInfo.type](keyInfo, level);
+
+const format = (compared, level = []) => compared
   .filter((keyInfo) => !notShownKeys.includes(keyInfo.type))
   .reduce((acc, keyInfo) => {
     const newLevel = [...level, keyInfo.name];
-    const parsed = keyTypeMapper[keyInfo.type](keyInfo, newLevel);
-    return [...acc, parsed];
+    return [...acc, getFormatted(keyInfo, newLevel)];
   }, [])
   .join('\n');
 
-export default parseCompared;
+export default format;

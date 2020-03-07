@@ -1,104 +1,55 @@
 import _ from 'lodash';
 
-const keysMapper = {
-  unchanged(key, obj1) {
-    return {
-      type: 'unchanged',
-      name: key,
-      value: this.parseValue(obj1[key]),
-    };
+const keyTypes = [
+  {
+    type: 'complex',
+    check: (obj1, obj2, key) => obj1[key] instanceof Object
+      && obj2[key] instanceof Object,
+    run: (oldValue, newValue) => ({ children: compare(oldValue, newValue) }),
   },
-  changed(key, obj1, obj2) {
-    return {
-      type: 'changed',
-      name: key,
-      oldValue: this.parseValue(obj1[key]),
-      newValue: this.parseValue(obj2[key]),
-    };
+  {
+    type: 'added',
+    check: (obj1, obj2, key) => _.has(obj2, key) && !_.has(obj1, key),
+    run: (oldValue, newValue) => ({ newValue: parseValue(newValue) }),
   },
-  deleted(key, obj1) {
-    return {
-      type: 'deleted',
-      name: key,
-      value: this.parseValue(obj1[key]),
-    };
+  {
+    type: 'deleted',
+    check: (obj1, obj2, key) => _.has(obj1, key) && !_.has(obj2, key),
+    run: (oldValue) => ({ oldValue: parseValue(oldValue) }),
   },
-  added(key, obj1, obj2) {
-    return {
-      type: 'added',
-      name: key,
-      value: this.parseValue(obj2[key]),
-    };
+  {
+    type: 'changed',
+    check: (obj1, obj2, key) => obj1[key] !== obj2[key],
+    run: (oldValue, newValue) => ({
+      oldValue: parseValue(oldValue),
+      newValue: parseValue(newValue),
+    }),
   },
-  complex(key, obj1, obj2) {
-    return {
-      type: 'complex',
-      name: key,
-      value: compare(obj1[key], obj2[key]),
-    };
+  {
+    type: 'unchanged',
+    check: (obj1, obj2, key) => obj1[key] === obj2[key],
+    run: (oldValue) => ({ oldValue: parseValue(oldValue) }),
   },
-
-  parseValue(value) {
-    let result = value;
-
-    if (value instanceof Object) {
-      result = Object
-        .entries(value)
-        .map(([key, v]) => ({
-          type: 'unchanged',
-          name: key,
-          value: v,
-        }));
-    }
-
-    return result;
-  },
-};
-
-const compareCommonKeys = (commonKeys, obj1, obj2) => commonKeys
-  .reduce((acc, key) => {
-    const value1 = obj1[key];
-    const value2 = obj2[key];
-    let result;
-
-    if (value1 instanceof Object
-      && value2 instanceof Object) {
-      result = keysMapper.complex(key, obj1, obj2);
-    } else if (value1 === value2) {
-      result = keysMapper.unchanged(key, obj1, obj2);
-    } else {
-      result = keysMapper.changed(key, obj1, obj2);
-    }
-
-    return [...acc, result];
-  }, []);
-
-const compareDifferentKeys = (differentKeys, obj1, obj2) => differentKeys
-  .reduce((acc, key) => {
-    let result;
-
-    if (_.has(obj1, key)) {
-      result = keysMapper.deleted(key, obj1, obj2);
-    } else {
-      result = keysMapper.added(key, obj1, obj2);
-    }
-
-    return [...acc, result];
-  }, []);
+];
 
 const compare = (obj1, obj2) => {
-  const keys1 = Object.keys(obj1);
-  const keys2 = Object.keys(obj2);
+  const keys = _.union(Object.keys(obj1), Object.keys(obj2));
+  const compared = keys.map((key) => {
+    const { type, run } = keyTypes.find(({ check }) => check(obj1, obj2, key));
+    const processed = run(obj1[key], obj2[key]);
 
-  const differentKeys = _.xor(keys1, keys2);
-  const commonKeys = _.intersection(keys1, keys2);
+    return {
+      type,
+      name: key,
+      ...processed,
+    };
+  });
 
-  const result = [
-    ...compareCommonKeys(commonKeys, obj1, obj2),
-    ...compareDifferentKeys(differentKeys, obj1, obj2),
-  ];
-
-  return result;
+  return compared;
 };
+
+const parseValue = (value) => (value instanceof Object
+  ? compare(value, value)
+  : value);
 
 export default compare;

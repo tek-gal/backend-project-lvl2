@@ -1,34 +1,118 @@
-{
-    common: {
-        setting1: Value 1,
-      - setting3: true,
-      + setting3: {
-            key: value
-        },
-        setting6: {
-            key: value,
-          + ops: vops
-        },
-      - setting2: 200,
-      + follow: false,
-      + setting4: blah blah,
-      + setting5: {
-            key5: value5
-        }
-    },
-    group1: {
-      - baz: bas,
-      + baz: bars,
-        foo: bar,
-      - nest: {
-            key: value
-        },
-      + nest: str
-    },
-  - group2: {
-        abc: 12345
-    },
-  + group3: {
-        fee: 100500
-    }
-}
+[
+  {
+    "type": "complex",
+    "name": "common",
+    "children": [
+      {
+        "type": "unchanged",
+        "name": "setting1",
+        "oldValue": "Value 1"
+      },
+      {
+        "type": "deleted",
+        "name": "setting2",
+        "oldValue": 200
+      },
+      {
+        "type": "changed",
+        "name": "setting3",
+        "oldValue": true,
+        "newValue": [
+          {
+            "type": "unchanged",
+            "name": "key",
+            "oldValue": "value"
+          }
+        ]
+      },
+      {
+        "type": "complex",
+        "name": "setting6",
+        "children": [
+          {
+            "type": "unchanged",
+            "name": "key",
+            "oldValue": "value"
+          },
+          {
+            "type": "added",
+            "name": "ops",
+            "newValue": "vops"
+          }
+        ]
+      },
+      {
+        "type": "added",
+        "name": "follow",
+        "newValue": false
+      },
+      {
+        "type": "added",
+        "name": "setting4",
+        "newValue": "blah blah"
+      },
+      {
+        "type": "added",
+        "name": "setting5",
+        "newValue": [
+          {
+            "type": "unchanged",
+            "name": "key5",
+            "oldValue": "value5"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "complex",
+    "name": "group1",
+    "children": [
+      {
+        "type": "changed",
+        "name": "baz",
+        "oldValue": "bas",
+        "newValue": "bars"
+      },
+      {
+        "type": "unchanged",
+        "name": "foo",
+        "oldValue": "bar"
+      },
+      {
+        "type": "changed",
+        "name": "nest",
+        "oldValue": [
+          {
+            "type": "unchanged",
+            "name": "key",
+            "oldValue": "value"
+          }
+        ],
+        "newValue": "str"
+      }
+    ]
+  },
+  {
+    "type": "deleted",
+    "name": "group2",
+    "oldValue": [
+      {
+        "type": "unchanged",
+        "name": "abc",
+        "oldValue": 12345
+      }
+    ]
+  },
+  {
+    "type": "added",
+    "name": "group3",
+    "newValue": [
+      {
+        "type": "unchanged",
+        "name": "fee",
+        "oldValue": 100500
+      }
+    ]
+  }
+]
