@@ -1,7 +1,8 @@
 const notShownKeys = ['unchanged'];
 
 const keyTypeMapper = {
-  complex: (keyInfo, level) => format(keyInfo.children, level),
+  // eslint-disable-next-line no-use-before-define
+  complex: (keyInfo, level) => format(keyInfo.nested, level),
   unchanged: () => '',
   deleted(keyInfo, level) {
     const path = this.getPath(level);

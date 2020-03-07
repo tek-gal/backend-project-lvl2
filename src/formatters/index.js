@@ -1,11 +1,11 @@
-import toJSON from './json.js';
-import toPlain from './plain.js';
-import toDefault from './default.js';
+import json from './json.js';
+import plain from './plain.js';
+import windiff from './windiff.js';
 
 const mapper = {
-  json: toJSON,
-  plain: toPlain,
-  default: toDefault,
+  json,
+  plain,
+  windiff,
 };
 
 

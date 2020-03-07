@@ -1,11 +1,17 @@
 import _ from 'lodash';
 
+const parseValue = (value) => (value instanceof Object
+  // eslint-disable-next-line no-use-before-define
+  ? compare(value, value)
+  : value);
+
 const keyTypes = [
   {
     type: 'complex',
     check: (obj1, obj2, key) => obj1[key] instanceof Object
       && obj2[key] instanceof Object,
-    run: (oldValue, newValue) => ({ children: compare(oldValue, newValue) }),
+    // eslint-disable-next-line no-use-before-define
+    run: (oldValue, newValue) => ({ nested: compare(oldValue, newValue) }),
   },
   {
     type: 'added',
@@ -47,9 +53,5 @@ const compare = (obj1, obj2) => {
 
   return compared;
 };
-
-const parseValue = (value) => (value instanceof Object
-  ? compare(value, value)
-  : value);
 
 export default compare;

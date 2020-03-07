@@ -11,7 +11,7 @@
       {
         "type": "deleted",
         "name": "setting2",
-        "oldValue": 200
+        "oldValue": "200"
       },
       {
         "type": "changed",
@@ -100,7 +100,7 @@
       {
         "type": "unchanged",
         "name": "abc",
-        "oldValue": 12345
+        "oldValue": "12345"
       }
     ]
   },
@@ -111,7 +111,7 @@
       {
         "type": "unchanged",
         "name": "fee",
-        "oldValue": 100500
+        "oldValue": "100500"
       }
     ]
   }

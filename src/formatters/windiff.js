@@ -1,7 +1,7 @@
 const keyTypeMapper = {
   complex(keyInfo, level) {
     const indent = this.getIndent(level);
-    const value = this.getValue(keyInfo.children, level);
+    const value = this.getValue(keyInfo.nested, level);
     return `${indent}  ${keyInfo.name}: ${value}`;
   },
   unchanged(keyInfo, level) {
@@ -32,6 +32,7 @@ ${indent}+ ${keyInfo.name}: ${newValue}`;
 
   getValue(value, level) {
     if (value instanceof Array) {
+      // eslint-disable-next-line no-use-before-define
       const result = format(value, level);
       return result;
     }
