@@ -32,8 +32,7 @@ const getFormatted = (level, info, func) => {
   const indent = getIndent(level);
   const oldValue = getValue(info.oldValue, func, newLevel);
   const newValue = getValue(info.newValue, func, newLevel);
-  const name = info.name;
-  return keyTypes[info.type](name, indent, oldValue, newValue, info, func, newLevel);
+  return keyTypes[info.type](info.name, indent, oldValue, newValue, info, func, newLevel);
 };
 
 const format = (compared, level = 0) => {

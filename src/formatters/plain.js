@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 const notShownKeys = ['unchanged'];
 
-const getPath = (oldP, newP) => oldP ? `${oldP}.${newP}` : newP;
+const getPath = (oldP, newP) => (oldP ? `${oldP}.${newP}` : newP);
 const values = [
   {
     check: (value) => value instanceof Array,
