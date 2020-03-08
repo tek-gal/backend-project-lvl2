@@ -15,8 +15,7 @@ const testFiles = [
   // json
   ['json', 'json', 'before.json', 'after.json', 'result_json.txt'],
   ['yml', 'json', 'before.yml', 'after.yml', 'result_json.txt'],
-  // я не знаю почему, но числа из ини парсятся как строки (на этапе ini.parse)
-  ['ini', 'json', 'before.ini', 'after.ini', 'result_json_ini.txt'],
+  ['ini', 'json', 'before.ini', 'after.ini', 'result_json.txt'],
   // plain
   ['json', 'plain', 'before.json', 'after.json', 'result_plain.txt'],
   ['yml', 'plain', 'before.yml', 'after.yml', 'result_plain.txt'],

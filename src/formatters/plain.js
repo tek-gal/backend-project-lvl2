@@ -1,50 +1,43 @@
+import _ from 'lodash';
+
 const notShownKeys = ['unchanged'];
 
-const keyTypeMapper = {
-  // eslint-disable-next-line no-use-before-define
-  complex: (keyInfo, level) => format(keyInfo.nested, level),
-  unchanged: () => '',
-  deleted(keyInfo, level) {
-    const path = this.getPath(level);
-    return `Property ${path} was deleted`;
+const getPath = (oldP, newP) => oldP ? `${oldP}.${newP}` : newP;
+const values = [
+  {
+    check: (value) => value instanceof Array,
+    make: () => '[nested value]',
   },
-  added(keyInfo, level) {
-    const path = this.getPath(level);
-    const value = this.getValue(keyInfo.newValue);
-    return `Property ${path} was added with value: ${value}`;
+  {
+    check: (value) => typeof value === 'string',
+    make: (value) => `'${value}'`,
   },
-  changed(keyInfo, level) {
-    const path = this.getPath(level);
-    const parsedOldValue = this.getValue(keyInfo.oldValue);
-    const parsedNewValue = this.getValue(keyInfo.newValue);
-    return `Property ${path} was changed from ${parsedOldValue} to ${parsedNewValue}`;
+  {
+    check: () => true,
+    make: (value) => value,
   },
+];
 
-  getValue(value) {
-    let result;
-
-    if (value instanceof Array) {
-      result = '[complex value]';
-    } else if (typeof value === 'string') {
-      result = `'${value}'`;
-    } else {
-      result = value;
-    }
-
-    return result;
-  },
-  getPath(level) {
-    return `'${level.join('.')}'`;
-  },
+const getValue = (value) => {
+  const { make } = _.find(values, ({ check }) => check(value));
+  return make(value);
 };
 
-const getFormatted = (keyInfo, level) => keyTypeMapper[keyInfo.type](keyInfo, level);
+const keyTypeMapper = {
+  nested: (path, info, func) => func(info.children, path),
+  unchanged: () => '',
+  deleted: (path) => `Property '${path}' was deleted`,
+  added: (path, info) => `Property '${path}' was added with value: ${getValue(info.newValue)}`,
+  changed: (path, info) => `Property '${path}' was changed from ${getValue(info.oldValue)} to ${getValue(info.newValue)}`,
+};
 
-const format = (compared, level = []) => compared
+const getFormatted = (path, keyInfo, func) => keyTypeMapper[keyInfo.type](path, keyInfo, func);
+
+const format = (compared, path = '') => compared
   .filter((keyInfo) => !notShownKeys.includes(keyInfo.type))
   .reduce((acc, keyInfo) => {
-    const newLevel = [...level, keyInfo.name];
-    return [...acc, getFormatted(keyInfo, newLevel)];
+    const newPath = getPath(path, keyInfo.name);
+    return [...acc, getFormatted(newPath, keyInfo, format)];
   }, [])
   .join('\n');
 
