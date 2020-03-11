@@ -9,10 +9,4 @@ const mapper = {
 };
 
 
-export default (compared, format) => {
-  if (Object.keys(mapper).includes(format)) {
-    return mapper[format](compared);
-  }
-
-  throw Error(`Unknown format: ${format}!`);
-};
+export default (compared, format) => mapper[format](compared);

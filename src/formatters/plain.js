@@ -25,7 +25,7 @@ const getValue = (value) => {
 
 const keyTypeMapper = {
   nested: (path, info, func) => func(info.children, path),
-  unchanged: () => '',
+  unchanged: () => null,
   deleted: (path) => `Property '${path}' was deleted`,
   added: (path, info) => `Property '${path}' was added with value: ${getValue(info.newValue)}`,
   changed: (path, info) => `Property '${path}' was changed from ${getValue(info.oldValue)} to ${getValue(info.newValue)}`,
