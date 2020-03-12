@@ -1,11 +1,11 @@
 import json from './json.js';
 import plain from './plain.js';
-import windiff from './windiff.js';
+import diff from './diff.js';
 
 const mapper = {
   json,
   plain,
-  windiff,
+  diff,
 };
 
 

@@ -17,13 +17,9 @@
         "type": "changed",
         "name": "setting3",
         "oldValue": true,
-        "newValue": [
-          {
-            "type": "unchanged",
-            "name": "key",
-            "oldValue": "value"
-          }
-        ]
+        "newValue": {
+          "key": "value"
+        }
       },
       {
         "type": "nested",
@@ -54,13 +50,9 @@
       {
         "type": "added",
         "name": "setting5",
-        "newValue": [
-          {
-            "type": "unchanged",
-            "name": "key5",
-            "oldValue": "value5"
-          }
-        ]
+        "newValue": {
+          "key5": "value5"
+        }
       }
     ]
   },
@@ -82,13 +74,9 @@
       {
         "type": "changed",
         "name": "nest",
-        "oldValue": [
-          {
-            "type": "unchanged",
-            "name": "key",
-            "oldValue": "value"
-          }
-        ],
+        "oldValue": {
+          "key": "value"
+        },
         "newValue": "str"
       }
     ]
@@ -96,23 +84,15 @@
   {
     "type": "deleted",
     "name": "group2",
-    "oldValue": [
-      {
-        "type": "unchanged",
-        "name": "abc",
-        "oldValue": 12345
-      }
-    ]
+    "oldValue": {
+      "abc": 12345
+    }
   },
   {
     "type": "added",
     "name": "group3",
-    "newValue": [
-      {
-        "type": "unchanged",
-        "name": "fee",
-        "oldValue": 100500
-      }
-    ]
+    "newValue": {
+      "fee": 100500
+    }
   }
 ]
