@@ -20,7 +20,7 @@ const keyTypeMapper = {
 };
 
 const getFormatted = (path, keyInfo, func) => keyTypeMapper[keyInfo.type](path, keyInfo, func);
-const getPath = (oldPath, newPath) => (oldPath ? `${oldPath}.${newPath}` : newPath);
+const getPath = (pathBefore, position) => (pathBefore ? `${pathBefore}.${position}` : position);
 
 const format = (compared, path = '') => compared
   .map((keyInfo) => {
